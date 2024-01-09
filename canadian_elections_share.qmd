@@ -1,0 +1,53 @@
+---
+title: "Exploring the 2021 Canadian Election"
+author: "Shuyang Qiu"
+thanks: "Code and data available at https://github.com/shuyangqiu/CanadianElections"
+date: "today"
+date-format: "long" 
+format: 
+  pdf:
+    fig-pos: 'H'
+execute: 
+  echo: false
+bibliography: ref.bib
+---
+
+```{r}
+#| output: false
+#### Workspace setup ####
+#install.packages("tidyverse")
+#install.packages("janitor")
+
+library(tidyverse)
+library(janitor)
+```
+
+The Canadian House of Commons consists of 338 members of Parliament who are democratically elected. Members of Parliament belong
+to two major parties --- "Liberal" and "Conservative" --- three minor parties --- "Bloc Québécois", "New Democratic", and "Green" --- and other smaller parties, or are independents. We were interested in the number of seats won by each party.
+
+The dataset was downloaded from the Elections Canada website. The dataset was then cleaned and analyzed using statistical programming language R [@r] including the `tidyverse` [@tidyverse] and `janitor` [@janitor]. We then created a graph showing the number of seats each party won (@fig-graph). 
+
+```{r}
+#| label: fig-graph
+#| fig-cap: Number of seats won per party
+#| out-width: 80%
+#### Read in the data ####
+cleaned_elections_data <-
+  read_csv(
+    file = "cleaned_elections_data.csv",
+    show_col_types = FALSE
+  )
+
+# Graph data
+cleaned_elections_data |>
+  ggplot(aes(x = party)) +
+  geom_bar() +
+  theme_minimal() + # Make the theme neater
+  labs(x = "Party", y = "Number of seats") # Make labels more meaningful
+```
+
+We found the Liberal party won 160 seats, the Conservative party won 119 seats and the Bloc Québécois, New Democratic, and Green parties won 32, 25, and 2 seats respectively. No other parties or independents won any seats.
+
+The distribution of seats within the House of Commons is heavily skewed towards the major parties. This could be the result of many factors such as funding, policies, and the voting system itself. These reasons warrant further study, but is outside the scope of this analysis.
+
+# References
