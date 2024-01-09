@@ -25,6 +25,8 @@ library(janitor)
 
 ## Plan
 
+![Sketch of dataset (left) and graph (right)](sketch.png)
+
 ## Simulate
 
 ```{r}
